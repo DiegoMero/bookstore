@@ -4,7 +4,7 @@ import Book from './Book';
 import InputBook from './InputBook';
 
 const BooksList = () => {
-  const bookList = useSelector((state) => state.books);
+  const bookList = useSelector((state) => state.booksReducer);
 
   return (
     <>
