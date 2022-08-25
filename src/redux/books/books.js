@@ -1,10 +1,28 @@
 const ADD_BOOK = 'bookstore/books/ADD_BOOK';
 const DELETE_BOOK = 'bookstore/books/DELETE_BOOK';
 
-const bookReducer = (state = [], action) => {
+const fewBooks = [
+  {
+    title: 'La vuelta al mundo en 80 días',
+    author: 'Jhon Carpenter',
+    id: '1',
+  },
+  {
+    title: 'El psicoanalista',
+    author: 'Kowalsky',
+    id: '2',
+  },
+  {
+    title: 'Frankestein',
+    author: 'Steven Spielberg',
+    id: '3',
+  },
+];
+
+const bookReducer = (state = fewBooks, action) => {
   switch (action.type) {
     case ADD_BOOK:
-      return state.push([action.book]);
+      return state.concat(action.book);
     case DELETE_BOOK:
       return state.filter((book) => JSON.stringify(book) !== JSON.stringify(action.book));
     default:
