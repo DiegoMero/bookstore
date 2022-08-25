@@ -3,18 +3,18 @@ const DELETE_BOOK = 'bookstore/books/DELETE_BOOK';
 
 const fewBooks = [
   {
-    title: 'La vuelta al mundo en 80 días',
-    author: 'Jhon Carpenter',
+    title: 'Around the World in Eighty Days',
+    author: 'Jules Verne',
     id: '1',
   },
   {
-    title: 'El psicoanalista',
-    author: 'Kowalsky',
+    title: 'The analyst',
+    author: 'John Katzenbach',
     id: '2',
   },
   {
-    title: 'Frankestein',
-    author: 'Steven Spielberg',
+    title: 'Frankenstein',
+    author: 'Mary Shelley',
     id: '3',
   },
 ];
