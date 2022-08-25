@@ -22,7 +22,7 @@ const fewBooks = [
 const bookReducer = (state = fewBooks, action) => {
   switch (action.type) {
     case ADD_BOOK:
-      return state.concat(action.book);
+      return [...state, action.book];
     case DELETE_BOOK:
       return state.filter((book) => JSON.stringify(book) !== JSON.stringify(action.book));
     default:
