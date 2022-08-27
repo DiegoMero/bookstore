@@ -1,44 +1,115 @@
-const ADD_BOOK = 'bookstore/books/ADD_BOOK';
-const DELETE_BOOK = 'bookstore/books/DELETE_BOOK';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import url from '../../components/APIurl';
 
-const fewBooks = [
-  {
-    title: 'Around the World in Eighty Days',
-    author: 'Jules Verne',
-    id: '1',
-  },
-  {
-    title: 'The analyst',
-    author: 'John Katzenbach',
-    id: '2',
-  },
-  {
-    title: 'Frankenstein',
-    author: 'Mary Shelley',
-    id: '3',
-  },
-];
+// Actions
+const START = 'bookStore/book/START_LOADING_BOOK';
+const GET_BOOKS = 'bookStore/book/LOAD_BOOK';
+const ADD_BOOK = 'bookStore/book/ADD_BOOK';
+const REMOVE_BOOK = 'bookStore/book/REMOVE_Book';
+const FAIL = 'bookStore/book/LOADING_FAILED_BOOK';
 
-const bookReducer = (state = fewBooks, action) => {
+const newBook = {
+  item: [],
+  loading: false,
+  error: null,
+};
+// Reducer
+export const bookReducer = (state = newBook, action = {}) => {
+  const remove = (sourceList, value) => {
+    const index = sourceList.indexOf(value);
+    if (index >= 0 && index < sourceList.length) {
+      return [
+        ...sourceList.slice(0, index),
+        ...sourceList.slice(index + 1),
+      ];
+    }
+    return sourceList;
+  };
+  const { payload } = action;
+
   switch (action.type) {
-    case ADD_BOOK:
-      return [...state, action.book];
-    case DELETE_BOOK:
-      return state.filter((book) => JSON.stringify(book) !== JSON.stringify(action.book));
+    case 'bookStore/book/LOAD_BOOK/pending':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case 'bookStore/book/LOAD_BOOK/fulfilled':
+      return {
+        ...state,
+        loading: false,
+        error: payload.value.error,
+        item: payload.value,
+      };
+    case 'bookStore/book/ADD_BOOK/fulfilled':
+      return {
+        ...state,
+        loading: false,
+        error: payload.value.error,
+        item: [...state.item, payload.value],
+      };
+
+    case 'bookStore/book/REMOVE_Book/fulfilled':
+      return {
+        ...state,
+        loading: false,
+        error: payload.value.error,
+        item: remove(state.item, state.item.filter((items) => items.id === payload.value)[0]),
+      };
+
+    case FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload.value.error,
+        item: [],
+      };
     default:
       return state;
   }
 };
 
-const addBook = (book) => ({
-  type: ADD_BOOK,
-  book,
-});
+// Action Creators
 
-const deleteBook = (book) => ({
-  type: DELETE_BOOK,
-  book,
-});
+export const loadBookFailed = (result) => ({ type: START, value: result });
 
-export default bookReducer;
-export { addBook, deleteBook };
+const errorHandler = (response) => {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+};
+export const getBooks = createAsyncThunk(GET_BOOKS, async () => fetch(`${url}/books`)
+  .then(errorHandler)
+  .then((res) => res.json())
+  .then((json) => {
+    const books = [];
+    Object.entries(json).forEach((key) => {
+      const uuid = key[0];
+      const { title, author } = key[1][0];
+      const book = { id: uuid, title, author };
+      books.push(book);
+    });
+    return { value: books };
+  })
+  .catch((error) => error));
+export const addBook = createAsyncThunk(ADD_BOOK, async (book) => fetch(`${url}/books`, {
+  method: 'POST',
+  body: JSON.stringify({
+    item_id: `${book.id}`,
+    title: `${book.title}`,
+    author: `${book.author}`,
+    category: `${book.category}`,
+  }),
+  headers: {
+    'Content-type': 'application/json',
+  },
+}).then(() => ({ value: book })));
+
+export const removeBook = createAsyncThunk(REMOVE_BOOK, (id) => fetch(`${url}/books/${id}`, {
+  method: 'DELETE',
+  body: '',
+  headers: {
+    'Content-type': 'application/json',
+  },
+}).then(() => ({ value: id })));
