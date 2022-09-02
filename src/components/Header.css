@@ -1,11 +1,12 @@
 .header {
   display: flex;
   width: auto;
-  height: 5.938rem;
-  padding: 1.438rem 6.188rem 1.688rem 6.25rem;
+  height: auto;
   background-color: #fff;
   align-items: center;
   margin: 0;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .header h1 {
