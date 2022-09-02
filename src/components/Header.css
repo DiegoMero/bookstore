@@ -10,21 +10,20 @@
 }
 
 .header h1 {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.875rem;
   color: #0290ff;
-  font-weight: 2000;
 }
 
 .book-header {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   text-decoration: none;
   letter-spacing: 1.9px;
   margin-left: 50px;
 }
 
 .categories-header {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   text-decoration: none;
   letter-spacing: 1.9px;
   margin-left: 50px;

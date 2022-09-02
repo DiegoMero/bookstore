@@ -19,6 +19,7 @@ const BooksList = () => {
           <Book key={data.id} id={data.id} title={data.title} author={data.author} />
         ))}
       </ul>
+      <div className="booklist-separator" />
       <InputBook />
 
     </>
