@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  width: auto;
+  height: 5.938rem;
+  padding: 1.438rem 6.188rem 1.688rem 6.25rem;
+  background-color: #fff;
+  align-items: center;
+  margin: 0;
+}
+
+.header h1 {
+  font-family: Montserrat;
+  font-size: 1.875rem;
+  color: #0290ff;
+  font-weight: 2000;
+}
+
+.book-header {
+  font-family: Montserrat;
+  text-decoration: none;
+  letter-spacing: 1.9px;
+  margin-left: 50px;
+}
+
+.categories-header {
+  font-family: Montserrat;
+  text-decoration: none;
+  letter-spacing: 1.9px;
+  margin-left: 50px;
+}
+
+.user-border {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.813rem;
+  height: 2.813rem;
+  margin-left: auto;
+  border: solid 1px #e8e8e8;
+  border-radius: 50%;
+}
+
+.header i {
+  color: #0290ff;
+}
