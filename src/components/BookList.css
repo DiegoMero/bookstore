@@ -1,0 +1,14 @@
+.booklist {
+  list-style: none;
+  padding: 0;
+}
+
+.booklist-separator {
+  width: 76.8rem;
+  height: 0.125rem;
+  margin-top: 35px;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #e8e8e8;
+  border: solid 1px #e8e8e8;
+}
